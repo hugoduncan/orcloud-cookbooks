@@ -19,15 +19,22 @@
 
 user node[:orc][:user][:name] do
   password node[:orc][:user][:password]
+  home "/home/#{node[:orc][:user][:name]}"
   supports :manage_home => true
   shell "/bin/bash"
 end
 
 node[:orc][:sudoers].each do |user|
-  node[:authorization][:sudo][:users] << u
+  node[:authorization][:sudo][:users] << user
 end
 
 include_recipe "sudo"
+
+directory "/home/#{node[:orc][:user][:name]}/" do
+  owner node[:orc][:user][:name]
+  group "users"
+  mode "755"
+end
 
 directory "/home/#{node[:orc][:user][:name]}/.ssh" do
   owner node[:orc][:user][:name]
