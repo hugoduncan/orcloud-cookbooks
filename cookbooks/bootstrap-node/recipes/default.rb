@@ -36,6 +36,13 @@ directory "/home/#{node[:orc][:user][:name]}/" do
   mode "755"
 end
 
+remote_file "/home/#{node[:orc][:user][:name]}/.gemrc" do
+  owner node[:orc][:user][:name]
+  group "users"
+  mode "755"
+  source "gemrc"
+end
+
 directory "/home/#{node[:orc][:user][:name]}/.ssh" do
   owner node[:orc][:user][:name]
   group "users"
