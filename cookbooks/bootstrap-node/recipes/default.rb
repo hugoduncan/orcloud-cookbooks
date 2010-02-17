@@ -49,3 +49,9 @@ template "/home/#{node[:orc][:user][:name]}/.ssh/authorized_keys" do
   mode "755"
 end
 
+directory "/srv/chef/" do
+  owner node[:orc][:user][:name]
+  group "users"
+  mode "755"
+end
+
